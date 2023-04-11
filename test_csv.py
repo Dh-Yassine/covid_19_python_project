@@ -10,6 +10,7 @@ path = "BD_Personnes.csv"
 header = ['CIN', 'Nom', 'Prenom', 'Age', 'Adresse', 'Nationalite', 'Telephone', 'Date_infection', 'deceder']
 
 
+                
 def verif_date(date_infection, window2):
     try:
         datetime.strptime(date_infection, "%d-%m-%Y")
@@ -17,7 +18,21 @@ def verif_date(date_infection, window2):
     except:
         window2.label_11.setText("Il faut que le date soit en format jj-mm-aaaa")
         return False
-
+    
+    
+def cin_verif(cin):
+    if len(cin) == 8 and cin.isdigit():
+        if os.path.exists(path) and os.path.getsize(path) > 0:
+            with open(path, 'r', newline='') as f:
+                reader = csv.DictReader(f)
+                f.seek(0)
+                rows = [row for row in reader if row['CIN'] == cin]
+                if rows:
+                    return True
+                else:
+                    return False
+                
+                
 def add_personne(window2):
     cin = window2.lineEdit_2.text()
     nom = window2.lineEdit_3.text()
@@ -53,7 +68,7 @@ def add_personne(window2):
     if err:
         window2.label_11.setText("Erreur : \n" + err)
         return
-
+    
     # Create a dictionary with the new person's data
     personne_dict = {
         'CIN': cin,
@@ -72,6 +87,14 @@ def add_personne(window2):
         writer = csv.DictWriter(file, fieldnames=personne_dict.keys())
         if os.stat(path).st_size == 0:
             writer.writeheader()
+        else :
+            with open(path, 'r', newline='') as f:
+                reader = csv.DictReader(f)
+                rows = [row for row in reader if row['CIN'] == cin]
+            if rows:
+                window2.label_11.setText("Le CIN existe déjà")
+                return
+        
         writer.writerow(personne_dict)
 
     window2.label_11.setText("Personne ajoutée avec succès")
@@ -401,5 +424,105 @@ def recherche_pers_dec(window_rech_dec):
     else:
         window_rech_dec.tableView.setModel(None)
         window_rech_dec.label_3.setText("La base de données est vide ou n'existe pas")
+
+path2 = "BD_Maladies.csv"
+header2 = ['Code', 'CIN', 'Nom_maladie', 'nombre_annees']
+
+
+def add_maladie(ajout_maladie):
+    
+    code= ajout_maladie.lineEdit_2.text()
+    cin = ajout_maladie.lineEdit_3.text()
+    nom_maladie = ajout_maladie.lineEdit_4.text()
+    nombre_annees = ajout_maladie.lineEdit_5.text()
+    
+    err = ""
+    if not code.isnumeric():
+        err += "* Vérifier le code de la maladie\n"
+    if len(cin) != 8 or not cin.isnumeric() :
+        err += "* Vérifier le numéro de CIN\n"
+    if not cin_verif(cin) :
+        err += "*  le numéro de CIN n'existe pas (Ajouter votre personne)\n"
+    if len(nom_maladie) < 3 or not nom_maladie.isalpha():
+        err += "* Vérifier le nom de la maladie\n"
+    if len(nombre_annees) > 2 or not nombre_annees.isnumeric():
+        err += "* Vérifier le nombre d'annees\n"
+        
+    if err:
+        ajout_maladie.label_11.setText("Erreur : \n" + err)
+        return
+
+    # Create a dictionary with the new person's data
+    maladie_dict = {
+        'Code': code,
+        'CIN': cin,
+        'Nom_maladie': nom_maladie,
+        'nombre_annee': nombre_annees,
+    }
+
+    # Write the dictionary to the CSV file
+    with open(path2, mode='a', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=maladie_dict.keys())
+        if os.stat(path2).st_size == 0:
+            writer.writeheader()
+        writer.writerow(maladie_dict)
+
+    ajout_maladie.label_11.setText("Personne ajoutée avec succès")
+
+
+def delete_maladie(window_supp_malad):
+#assuming delete maladie bel code
+    code = window_supp_malad.lineEdit.text()
+    if code.isdigit():
+        if os.path.exists(path2) and os.path.getsize(path2) > 0:
+            with open(path2, 'r', newline='') as f:
+                reader = csv.DictReader(f)
+                print(reader)
+                f.seek(0)
+                rows = [row for row in reader if row['Code'] != code]
+
+            with open(path2, 'w', newline='') as f:
+                writer = csv.writer(f)
+                writer.writerow(header2)
+                for row in rows:
+                    writer.writerow(row.values())
+
+            window_supp_malad.label_2.setText(f"Le maladie avec le code {code} a été supp_maladrimé")
+        else:
+            window_supp_malad.label_2.setText("La base de données est vide ou n'existe pas")
+    else:
+        window_supp_malad.label_2.setText("Vérifier le code de maladie donné")
+        
+
+        
+        
+def modifier_nombre_anne(window_mod_tel):
+    code, nombre_annee = window_mod_tel.lineEdit.text(), window_mod_tel.lineEdit_2.text()
+    if code.isdigit() and nombre_annee.isdigit():
+        if os.path.exists(path2) and os.path.getsize(path2) > 0:
+            with open(path2, 'r', newline='') as file:
+                reader = csv.DictReader(file)
+                rows = list(reader)
+
+            found = False
+            for row in rows:
+                if row['Code'] == code:
+                    row['nombre_annees'] = nombre_annee
+                    found = True
+                    break
+
+            if found:
+                with open(path2, 'w', newline='') as file:
+                    writer = csv.DictWriter(file, fieldnames=reader.fieldnames)
+                    writer.writeheader()
+                    writer.writerows(rows)
+                window_mod_tel.label_3.setText(f"Nombre d'années du maladie avec le code {code} a été modifié")
+            else:
+                window_mod_tel.label_3.setText(f"Le maladie avec le code {code} n'existe pas")
+        else:
+            window_mod_tel.label_3.setText("La base de données est vide ou n'existe pas")
+    else:
+        window_mod_tel.label_3.setText("Vérifier le code ou le nombre d'années")
+
 
 

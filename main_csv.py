@@ -96,6 +96,32 @@ window.show_contenu_action.triggered.connect(window_show_contenu.show)
 window_show_contenu.pushButton.clicked.connect(lambda: test_csv.affichage(window_show_contenu))
 
 
+
+
+ajout_maladie=loadUi("ajout_maladie.ui")
+
+window.ajout_maladie.triggered.connect(ajout_maladie.show)
+
+ajout_maladie.pushButton.clicked.connect(lambda : test_csv.add_maladie(ajout_maladie))
+
+
+
+
+window_supp_malad=loadUi("supp_malad.ui")
+
+window.supp_malad.triggered.connect(window_supp_malad.show)
+
+window_supp_malad.pushButton.clicked.connect(lambda : test_csv.delete_maladie(window_supp_malad))
+
+
+
+
+window_mod_nombre_anne=loadUi("mod_nombre_anne.ui")
+
+window.mod_years.triggered.connect(window_mod_nombre_anne.show)
+
+window_mod_nombre_anne.pushButton.clicked.connect(lambda: test_csv.modifier_nombre_anne(window_mod_nombre_anne))
+
 app.exec()
 
 

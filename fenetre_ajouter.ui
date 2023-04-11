@@ -16,9 +16,9 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>360</x>
      <y>370</y>
-     <width>141</width>
+     <width>171</width>
      <height>51</height>
     </rect>
    </property>
@@ -29,6 +29,10 @@
    </property>
    <property name="text">
     <string>Ajouter</string>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>add.png</normaloff>add.png</iconset>
    </property>
   </widget>
   <widget class="QLabel" name="label_11">
@@ -802,7 +806,7 @@
        <enum>QFrame::NoFrame</enum>
       </property>
       <property name="text">
-       <string>Date_Infecttion :</string>
+       <string>Date d'infection :</string>
       </property>
      </widget>
     </item>
