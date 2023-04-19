@@ -1,2 +1,5 @@
 CIN,Nom,Prenom,Age,Adresse,Nationalite,Telephone,Date_infection,deceder
-11998987,dhouibi,yassine,26,kairouan,tunisian,26260995,22-09-2003,Oui
+11998987,dhouibi,yassine,26,kairouan,tunisian,26260995,22-09-2003,False
+11995482,dhouibi,yassine,26,kairouan,tunisian,26260995,22-09-2003,False
+12345678,dhouibi,yassine,26,kairouan,tunisian,26260995,22-09-2003,False
+11998988,dhouibi,yassine,26,kairouan,tunisian,26260995,22-09-2003,False

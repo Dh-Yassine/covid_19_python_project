@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>693</width>
-    <height>473</height>
+    <width>624</width>
+    <height>434</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@ QWidget * {
     border-image: none;
 }</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="QFrame" name="frame">
      <property name="frameShape">
@@ -30,7 +30,7 @@ QWidget * {
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QTableView" name="tableView"/>
       </item>

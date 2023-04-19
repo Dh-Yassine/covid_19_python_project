@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow , QApplication
 from PyQt5.QtGui import QIcon
 from PyQt5.uic import loadUi
-
+import myli
 import test_csv
 
 
@@ -121,6 +121,57 @@ window_mod_nombre_anne=loadUi("mod_nombre_anne.ui")
 window.mod_years.triggered.connect(window_mod_nombre_anne.show)
 
 window_mod_nombre_anne.pushButton.clicked.connect(lambda: test_csv.modifier_nombre_anne(window_mod_nombre_anne))
+
+
+
+
+window_mod_dec=loadUi("mod_deceder.ui")
+
+window.mod_deceder.triggered.connect(window_mod_dec.show)
+
+window_mod_dec.pushButton.clicked.connect(lambda: test_csv.modifier_dec(window_mod_dec))
+
+
+
+
+window_show_contenu_mal=loadUi("show_contenu2.ui")
+
+window.aff_dictionnaire_maladies.triggered.connect(window_show_contenu_mal.show)
+
+window_show_contenu_mal.pushButton.clicked.connect(lambda: test_csv.affichage2(window_show_contenu_mal))
+
+
+
+
+window_rech_mal=loadUi("rech_maladie.ui")
+
+window.rech_mal.triggered.connect(window_rech_mal.show)
+
+window_rech_mal.pushButton.clicked.connect(lambda: test_csv.recherche_mal(window_rech_mal))
+
+
+
+
+window_rech_mal_pers=loadUi("rech_maladie_pers.ui")
+
+window.rech_mal_pers.triggered.connect(window_rech_mal_pers.show)
+
+window_rech_mal_pers.pushButton.clicked.connect(lambda: test_csv.recherche_mal_pers(window_rech_mal_pers))
+
+
+
+
+window_all_mal_pers=loadUi("aff_maladie_pers.ui")
+
+window.rech_all_pers.triggered.connect(window_all_mal_pers.show)
+
+window_all_mal_pers.pushButton.clicked.connect(lambda: test_csv.maladie_chaque_pers(window_all_mal_pers))
+
+
+
+
+
+
 
 app.exec()
 

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1225</width>
+    <width>1098</width>
     <height>600</height>
    </rect>
   </property>
@@ -19,33 +19,20 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>-20</x>
-      <y>-60</y>
-      <width>1371</width>
-      <height>661</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>covid.jpg</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/newPrefix/covid.jpg);</string>
+   </property>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1225</width>
+     <width>1098</width>
      <height>36</height>
     </rect>
    </property>
@@ -236,183 +223,6 @@
    <property name="styleSheet">
     <string notr="true">background-color: rgb(0, 54, 100);</string>
    </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="palette">
-     <palette>
-      <active>
-       <colorrole role="WindowText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Button">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Text">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="ButtonText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Base">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Window">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </active>
-      <inactive>
-       <colorrole role="WindowText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Button">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Text">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="ButtonText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Base">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Window">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </inactive>
-      <disabled>
-       <colorrole role="WindowText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>109</red>
-          <green>109</green>
-          <blue>109</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Button">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Text">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>109</red>
-          <green>109</green>
-          <blue>109</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="ButtonText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>120</red>
-          <green>120</green>
-          <blue>120</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Base">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Window">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </disabled>
-     </palette>
-    </property>
-    <property name="title">
-     <string>Acceuil</string>
-    </property>
-   </widget>
    <widget class="QMenu" name="menujdddoub">
     <property name="palette">
      <palette>
@@ -1866,7 +1676,7 @@
       </property>
       <addaction name="mod_years"/>
       <addaction name="separator"/>
-      <addaction name="actionModifier_d_c_s"/>
+      <addaction name="mod_deceder"/>
       <addaction name="separator"/>
      </widget>
      <addaction name="ajout_maladie"/>
@@ -2052,15 +1862,15 @@
      <property name="title">
       <string>Recherche et Affichage</string>
      </property>
-     <addaction name="actionContenu_du_dictionnaire_maladies"/>
+     <addaction name="aff_dictionnaire_maladies"/>
      <addaction name="separator"/>
-     <addaction name="actionRecherche_par_une_maladie"/>
+     <addaction name="rech_mal"/>
      <addaction name="separator"/>
-     <addaction name="actionRecherche_maladies_d_une_personne"/>
+     <addaction name="rech_mal_pers"/>
      <addaction name="separator"/>
      <addaction name="actionRecherche_le_pourcentage_de_chaque_maladie"/>
      <addaction name="separator"/>
-     <addaction name="actionRecherche_maladies_de_chaque_personne"/>
+     <addaction name="rech_all_pers"/>
      <addaction name="separator"/>
     </widget>
     <addaction name="menuMise_Jour"/>
@@ -2253,198 +2063,10 @@
     <addaction name="actionPersonnes_risque"/>
     <addaction name="separator"/>
    </widget>
-   <widget class="QMenu" name="menuEnregistrement_et_r_cup_ration_des_fichiers">
-    <property name="palette">
-     <palette>
-      <active>
-       <colorrole role="WindowText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Button">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Text">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="ButtonText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Base">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Window">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </active>
-      <inactive>
-       <colorrole role="WindowText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Button">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Text">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="ButtonText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Base">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Window">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </inactive>
-      <disabled>
-       <colorrole role="WindowText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>109</red>
-          <green>109</green>
-          <blue>109</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Button">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Text">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>109</red>
-          <green>109</green>
-          <blue>109</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="ButtonText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>120</red>
-          <green>120</green>
-          <blue>120</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Base">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Window">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>54</green>
-          <blue>100</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </disabled>
-     </palette>
-    </property>
-    <property name="title">
-     <string>Enregistrement et récupération des fichiers</string>
-    </property>
-    <addaction name="actionEnregistrement_fichier_PERSONNES"/>
-    <addaction name="separator"/>
-    <addaction name="actionR_cup_ration_fichier_PERSONNES"/>
-    <addaction name="separator"/>
-    <addaction name="actionEnregistrement_fichier_MALDIES"/>
-    <addaction name="separator"/>
-    <addaction name="actionR_cup_ration_fichier_MALADIES"/>
-    <addaction name="separator"/>
-   </widget>
-   <addaction name="menuFile"/>
    <addaction name="menujdddoub"/>
    <addaction name="menuGestion_Des_Maladies"/>
    <addaction name="menuCalcul_et_Affichage"/>
-   <addaction name="menuEnregistrement_et_r_cup_ration_des_fichiers"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionfirst_optio">
    <property name="text">
     <string>first optio,</string>
@@ -2515,6 +2137,10 @@
    </property>
   </action>
   <action name="show_contenu_action">
+   <property name="icon">
+    <iconset>
+     <normaloff>content.png</normaloff>content.png</iconset>
+   </property>
    <property name="text">
     <string>Contenu du dictoinnaire personne</string>
    </property>
@@ -2592,17 +2218,21 @@
     <string>Nombre d'années</string>
    </property>
   </action>
-  <action name="actionModifier_d_c_s">
+  <action name="mod_deceder">
    <property name="text">
     <string>Modifier décés</string>
    </property>
   </action>
-  <action name="actionContenu_du_dictionnaire_maladies">
+  <action name="aff_dictionnaire_maladies">
+   <property name="icon">
+    <iconset>
+     <normaloff>content.png</normaloff>content.png</iconset>
+   </property>
    <property name="text">
     <string>Contenu du dictionnaire maladies</string>
    </property>
   </action>
-  <action name="actionRecherche_par_une_maladie">
+  <action name="rech_mal">
    <property name="icon">
     <iconset>
      <normaloff>search.png</normaloff>search.png</iconset>
@@ -2611,7 +2241,7 @@
     <string>Recherche par une maladie</string>
    </property>
   </action>
-  <action name="actionRecherche_maladies_d_une_personne">
+  <action name="rech_mal_pers">
    <property name="icon">
     <iconset>
      <normaloff>search.png</normaloff>search.png</iconset>
@@ -2629,7 +2259,7 @@
     <string>Recherche le pourcentage de chaque maladie</string>
    </property>
   </action>
-  <action name="actionRecherche_maladies_de_chaque_personne">
+  <action name="rech_all_pers">
    <property name="icon">
     <iconset>
      <normaloff>search.png</normaloff>search.png</iconset>
@@ -2639,21 +2269,37 @@
    </property>
   </action>
   <action name="actionAfficher_par_nationalit">
+   <property name="icon">
+    <iconset>
+     <normaloff>nationalite.png</normaloff>nationalite.png</iconset>
+   </property>
    <property name="text">
     <string>Afficher par nationalité</string>
    </property>
   </action>
   <action name="actionPersonnes_en_quarantine">
+   <property name="icon">
+    <iconset>
+     <normaloff>dead.png</normaloff>dead.png</iconset>
+   </property>
    <property name="text">
     <string>Personnes en quarantine</string>
    </property>
   </action>
   <action name="actionPersonnes_d_c_d_s">
+   <property name="icon">
+    <iconset>
+     <normaloff>dead.png</normaloff>dead.png</iconset>
+   </property>
    <property name="text">
     <string>Personnes décédés</string>
    </property>
   </action>
   <action name="actionPersonnes_risque">
+   <property name="icon">
+    <iconset>
+     <normaloff>dead.png</normaloff>dead.png</iconset>
+   </property>
    <property name="text">
     <string>Personnes à risque</string>
    </property>
@@ -2679,6 +2325,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="yvjvhy.qrc"/>
+ </resources>
  <connections/>
 </ui>

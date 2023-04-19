@@ -2,6 +2,7 @@ import pandas as pd
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
 import csv
 import os
 from datetime import datetime
@@ -16,7 +17,6 @@ def verif_date(date_infection, window2):
         datetime.strptime(date_infection, "%d-%m-%Y")
         return True
     except:
-        window2.label_11.setText("Il faut que le date soit en format jj-mm-aaaa")
         return False
     
     
@@ -33,6 +33,8 @@ def cin_verif(cin):
                     return False
                 
                 
+from PyQt5.QtWidgets import QMessageBox
+
 def add_personne(window2):
     cin = window2.lineEdit_2.text()
     nom = window2.lineEdit_3.text()
@@ -60,13 +62,18 @@ def add_personne(window2):
         err += "* Vérifier l'âge\n"
     if len(nationalite) < 3 or not nationalite.isalpha():
         err += "* Vérifier la nationalité\n"
-    if not dec1 and not dec0:
+    if dec1 == dec0:
         err += "* Vérifier l'état de décès\n"
     if not verif_date(date_infection, window2):
         err += "* Vérifier la date d'infection\n"
 
     if err:
-        window2.label_11.setText("Erreur : \n" + err)
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Critical)
+        msg.setWindowTitle("Erreur")
+        msg.setText("Veuillez corriger les erreurs suivantes :")
+        msg.setInformativeText(err)
+        msg.exec_()
         return
     
     # Create a dictionary with the new person's data
@@ -92,12 +99,21 @@ def add_personne(window2):
                 reader = csv.DictReader(f)
                 rows = [row for row in reader if row['CIN'] == cin]
             if rows:
-                window2.label_11.setText("Le CIN existe déjà")
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setWindowTitle("Attention")
+                msg.setText("Le CIN existe déjà")
+                msg.exec_()
                 return
         
         writer.writerow(personne_dict)
 
-    window2.label_11.setText("Personne ajoutée avec succès")
+    msg = QMessageBox()
+    msg.setIcon(QMessageBox.Information)
+    msg.setWindowTitle("Succès")
+    msg.setText("Personne ajoutée avec succès")
+    msg.exec_()
+
 
 
 
@@ -119,35 +135,64 @@ def delete(window_Supp):
                 for row in rows:
                     writer.writerow(row.values())
 
-            window_Supp.label_2.setText(f"Le personne avec le CIN {num} a été supprimé")
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setText(f"Le personne avec le CIN {num} a été supprimé")
+            msg.setWindowTitle("Succès")
+            msg.exec_()
         else:
-            window_Supp.label_2.setText("La base de données est vide ou n'existe pas")
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("La base de données est vide ou n'existe pas")
+            msg.setWindowTitle("Erreur")
+            msg.exec_()
     else:
-        window_Supp.label_2.setText("Vérifier le numéro de CIN donné")
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setText("Vérifier le numéro de CIN donné")
+        msg.setWindowTitle("Erreur")
+        msg.exec_()
+
 def supprimer_telephone(window_Supp_tel):
-     telephone = window_Supp_tel.lineEdit.text()
-     if len(telephone) == 8 and telephone.isdigit():
-         if os.path.exists(path) and os.path.getsize(path) > 0:
-             with open(path, 'r', newline='') as f:
-                 reader = csv.DictReader(f)
-                 rows = [row for row in reader if row['Telephone'] != telephone]
+    telephone = window_Supp_tel.lineEdit.text()
+    if len(telephone) == 8 and telephone.isdigit():
+        if os.path.exists(path) and os.path.getsize(path) > 0:
+            with open(path, 'r', newline='') as f:
+                reader = csv.DictReader(f)
+                rows = [row for row in reader if row['Telephone'] != telephone]
 
-             with open(path, 'w', newline='') as f:
-                 fieldnames = ['CIN', 'Nom', 'Prenom', 'Age', 'Adresse', 'Nationalite', 'Telephone', 'Date_infection', 'deceder']
-                 writer = csv.DictWriter(f, fieldnames=fieldnames)
-                 writer.writeheader()
-                 writer.writerows(rows)
+            with open(path, 'w', newline='') as f:
+                fieldnames = ['CIN', 'Nom', 'Prenom', 'Age', 'Adresse', 'Nationalite', 'Telephone', 'Date_infection', 'deceder']
+                writer = csv.DictWriter(f, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(rows)
 
-             window_Supp_tel.label.setText(f"tout personne qui a le num de tel {telephone} a été supprimer")
-         else:
-             window_Supp_tel.label.setText("La base de donner est vide ou n'existe pas")
-     else:
-         window_Supp_tel.label.setText("Vérifier le numéro de téléphone")
+            msg = QMessageBox()
+            msg.setWindowTitle("Success")
+            msg.setText(f"Toutes les personnes ayant le numéro de téléphone {telephone} ont été supprimées")
+            msg.setIcon(QMessageBox.Information)
+            msg.exec_()
+        else:
+            msg = QMessageBox()
+            msg.setWindowTitle("Error")
+            msg.setText("La base de données est vide ou n'existe pas")
+            msg.setIcon(QMessageBox.Critical)
+            msg.exec_()
+    else:
+        msg = QMessageBox()
+        msg.setWindowTitle("Error")
+        msg.setText("Vérifier le numéro de téléphone donné")
+        msg.setIcon(QMessageBox.Critical)
+        msg.exec_()
 
 def supprimer_nationalite(window_Supp_nat):
     nationalite = window_Supp_nat.lineEdit.text()
     if len(nationalite) < 3 or not nationalite.isalpha():
-         window_Supp_nat.label_2.setText("*Verifier la nationalité\n")
+        msg = QMessageBox()
+        msg.setWindowTitle("Error")
+        msg.setText("Veuillez vérifier la nationalité donnée (doit contenir au moins 3 lettres alphabétiques)")
+        msg.setIcon(QMessageBox.Critical)
+        msg.exec_()
     else :
         if os.path.exists(path) and os.path.getsize(path) > 0:
             with open(path, 'r', newline='') as f:
@@ -159,11 +204,17 @@ def supprimer_nationalite(window_Supp_nat):
                 writer.writeheader()
                 writer.writerows(rows)
 
-            window_Supp_nat.label_2.setText(f"tout personne qui a la  nationalité {nationalite} a été supprimé")
+            msg = QMessageBox()
+            msg.setWindowTitle("Success")
+            msg.setText(f"Toutes les personnes ayant la nationalité {nationalite} ont été supprimées")
+            msg.setIcon(QMessageBox.Information)
+            msg.exec_()
         else:
-             window_Supp_nat.label_2.setText("La base de donner est vide ou n'existe pas")
-
-
+            msg = QMessageBox()
+            msg.setWindowTitle("Error")
+            msg.setText("La base de données est vide ou n'existe pas")
+            msg.setIcon(QMessageBox.Critical)
+            msg.exec_()
 def affichage(window_show_contenu):
     # Create a new QStandardItemModel
     model = QStandardItemModel()
@@ -223,22 +274,38 @@ def modifier_telephone(window_mod_tel):
                     writer = csv.DictWriter(file, fieldnames=reader.fieldnames)
                     writer.writeheader()
                     writer.writerows(rows)
-                window_mod_tel.label_3.setText(f"Téléphone de personne avec le NCIN {num} a été modifié")
+                msg = QMessageBox()
+                msg.setWindowTitle("Success")
+                msg.setText(f"Téléphone de la personne avec le NCIN {num} a été modifié")
+                msg.setIcon(QMessageBox.Information)
+                msg.exec_()
             else:
-                window_mod_tel.label_3.setText(f"Personne avec le NCIN {num} n'existe pas")
+                msg = QMessageBox()
+                msg.setWindowTitle("Error")
+                msg.setText(f"Personne avec le NCIN {num} n'existe pas")
+                msg.setIcon(QMessageBox.Critical)
+                msg.exec_()
         else:
-            window_mod_tel.label_3.setText("La base de donneés est vide ou n'existe pas")
+            msg = QMessageBox()
+            msg.setWindowTitle("Error")
+            msg.setText("La base de données est vide ou n'existe pas")
+            msg.setIcon(QMessageBox.Critical)
+            msg.exec_()
     else:
-        window_mod_tel.label_3.setText("Vérifier le NCIN ou le numéro de téléphone ")
+        msg = QMessageBox()
+        msg.setWindowTitle("Error")
+        msg.setText("Vérifier le NCIN ou le numéro de téléphone")
+        msg.setIcon(QMessageBox.Critical)
+        msg.exec_()
 
 def modifier_adresse(window_mod_ad):
     num, adresse = window_mod_ad.lineEdit.text(), window_mod_ad.lineEdit_2.text()
     path = 'BD_Personnes.csv'
-    
+
     if (len(num) == 8 or num.isdigit() == True) and (len(adresse) > 3 or adresse.isalpha() == True):
-        if(os.path.exists(path) and os.path.getsize(path) > 0):
-            with open(path, 'r', newline='') as file:
-                reader = csv.DictReader(file)
+        if os.path.exists(path) and os.path.getsize(path) > 0:
+            with open(path, 'r', newline='') as f:
+                reader = csv.DictReader(f)
                 rows = list(reader)
 
             found = False
@@ -249,22 +316,39 @@ def modifier_adresse(window_mod_ad):
                     break
 
             if found:
-                with open(path, 'w', newline='') as file:
-                    writer = csv.DictWriter(file, fieldnames=reader.fieldnames)
+                with open(path, 'w', newline='') as f:
+                    fieldnames = ['CIN', 'Nom', 'Prenom', 'Age', 'Adresse', 'Nationalite', 'Telephone', 'Date_infection', 'deceder']
+                    writer = csv.DictWriter(f, fieldnames=fieldnames)
                     writer.writeheader()
                     writer.writerows(rows)
 
-                    window_mod_ad.label_3.setText(f"Adresse de personne avec le NCIN {num} a été modifié")
+                msg = QMessageBox()
+                msg.setWindowTitle("Success")
+                msg.setText(f"L'adresse de la personne avec le NCIN {num} a été modifiée")
+                msg.setIcon(QMessageBox.Information)
+                msg.exec_()
             else:
-                window_mod_ad.label_3.setText(f"Personne avec le NCIN {num} n'existe pas")
+                msg = QMessageBox()
+                msg.setWindowTitle("Error")
+                msg.setText(f"Personne avec le NCIN {num} n'existe pas")
+                msg.setIcon(QMessageBox.Critical)
+                msg.exec_()
         else:
-            window_mod_ad.label_3.setText("La base de données est vide ou n'existe pas")
+            msg = QMessageBox()
+            msg.setWindowTitle("Error")
+            msg.setText("La base de données est vide ou n'existe pas")
+            msg.setIcon(QMessageBox.Critical)
+            msg.exec_()
     else:
-        window_mod_ad.label_3.setText("Vérifier le NCIN ou l'adresse")
+        msg = QMessageBox()
+        msg.setWindowTitle("Error")
+        msg.setText("Vérifier le NCIN ou l'adresse")
+        msg.setIcon(QMessageBox.Critical)
+        msg.exec_()
 
 
-def recherche_tel(window_rech_tel):
-    telephone = window_rech_tel.lineEdit.text()
+def recherche_tel(window_rech_mal):
+    telephone = window_rech_mal.lineEdit.text()
     if (len(telephone) == 8 and telephone.isdigit()):
         if os.path.exists(path) and os.path.getsize(path) > 0:
             with open(path, 'r', newline='') as f:
@@ -277,17 +361,31 @@ def recherche_tel(window_rech_tel):
                 if rows:
                     fieldnames = ['CIN', 'Nom', 'Prenom', 'Age', 'Adresse', 'Nationalite', 'Telephone', 'Date_infection', 'deceder']
                     model = CsvTableModelDict(rows, fieldnames)
-                    window_rech_tel.tableView.setModel(model)
-                    window_rech_tel.label_3.setText("")
+                    window_rech_mal.tableView.setModel(model)
                 else:
-                    window_rech_tel.tableView.setModel(None)
-                    window_rech_tel.label_3.setText("Aucun résultat trouvé pour ce numéro de téléphone")
+                    window_rech_mal.tableView.setModel(None)
+                    msg = QMessageBox()
+                    msg.setWindowTitle("Error")
+                    msg.setText("Aucun résultat trouvé pour ce numéro de téléphone")
+                    msg.setIcon(QMessageBox.Critical)
+                    msg.exec_()
+
         else:
-            window_rech_tel.tableView.setModel(None)
-            window_rech_tel.label_3.setText("La base de données est vide ou n'existe pas")
+            window_rech_mal.tableView.setModel(None)
+            msg = QMessageBox()
+            msg.setWindowTitle("Error")
+            msg.setText("La base de données est vide ou n'existe pas")
+            msg.setIcon(QMessageBox.Critical)
+            msg.exec_()
+            
     else:
-        window_rech_tel.tableView.setModel(None)
-        window_rech_tel.label_3.setText("Vérifier le numéro de téléphone (8 chiffres)")
+        window_rech_mal.tableView.setModel(None)
+        msg = QMessageBox()
+        msg.setWindowTitle("Error")
+        msg.setText("Vérifier le numéro de téléphone (8 chiffres)")
+        msg.setIcon(QMessageBox.Critical)
+        msg.exec_()
+    
 
 
 class CsvTableModelDict(QtCore.QAbstractTableModel):
@@ -327,18 +425,30 @@ def recherche_2digit_tel(window_rech_ind):
 
             if not rows:
                 window_rech_ind.tableView.setModel(None)
-                window_rech_ind.label_3.setText("Aucune personne avec ce numéro de téléphone trouvé.")
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("Aucune personne avec ce numéro de téléphone trouvé.")
+                msg.setWindowTitle("erreur")
+                msg.exec_()
             else:
                 model = CsvTableModel(rows, header)
                 window_rech_ind.tableView.setModel(model)
-                window_rech_ind.label_3.setText("")
+                
 
         else:
             window_rech_ind.tableView.setModel(None)
-            window_rech_ind.label_3.setText("La base de donnée est vide ou n'existe pas.")
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("La base de donnée est vide ou n'existe pas.")
+            msg.setWindowTitle("erreur")
+            msg.exec_()
     else:
         window_rech_ind.tableView.setModel(None)
-        window_rech_ind.label_3.setText("Vérifier l'indicatif.")
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setText("Vérifier l'indicatif.")
+        msg.setWindowTitle("erreur")
+        msg.exec_()
 
 class CsvTableModel(QtCore.QAbstractTableModel):
     def __init__(self, data, header, parent=None):
@@ -417,18 +527,40 @@ def recherche_pers_dec(window_rech_dec):
                 fieldnames = ['CIN', 'Nom', 'Prenom', 'Age', 'Adresse', 'Nationalite', 'Telephone', 'Date_infection', 'deceder']
                 model = CsvTableModel_dec(rows, fieldnames)
                 window_rech_dec.tableView.setModel(model)
-                window_rech_dec.label_3.setText("")
+                
             else:
                 window_rech_dec.tableView.setModel(None)
-                window_rech_dec.label_3.setText("Aucun résultat trouvé pour cette recherche")
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("Aucun résultat trouvé pour cette recherche")
+                msg.setWindowTitle("erreur")
+                msg.exec_()
+                
     else:
         window_rech_dec.tableView.setModel(None)
-        window_rech_dec.label_3.setText("La base de données est vide ou n'existe pas")
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setText("La base de données est vide ou n'existe pas")
+        msg.setWindowTitle("erreur")
+        msg.exec_()
+        
 
 path2 = "BD_Maladies.csv"
 header2 = ['Code', 'CIN', 'Nom_maladie', 'nombre_annees']
 
-
+def code_verif(code):
+    if code.isdigit():
+        if os.path.exists(path2) and os.path.getsize(path2) > 0:
+            with open(path2, 'r', newline='') as f:
+                reader = csv.DictReader(f)
+                f.seek(0)
+                rows = [row for row in reader if row['Code'] == code]
+                if rows:
+                    return True
+                else:
+                    return False
+    
+                
 def add_maladie(ajout_maladie):
     
     code= ajout_maladie.lineEdit_2.text()
@@ -438,18 +570,23 @@ def add_maladie(ajout_maladie):
     
     err = ""
     if not code.isnumeric():
-        err += "* Vérifier le code de la maladie\n"
+        err += "* Vérifier le code du maladie\n"
     if len(cin) != 8 or not cin.isnumeric() :
         err += "* Vérifier le numéro de CIN\n"
     if not cin_verif(cin) :
         err += "*  le numéro de CIN n'existe pas (Ajouter votre personne)\n"
     if len(nom_maladie) < 3 or not nom_maladie.isalpha():
-        err += "* Vérifier le nom de la maladie\n"
+        err += "* Vérifier le nom du maladie\n"
     if len(nombre_annees) > 2 or not nombre_annees.isnumeric():
         err += "* Vérifier le nombre d'annees\n"
         
     if err:
-        ajout_maladie.label_11.setText("Erreur : \n" + err)
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Critical)
+        msg.setWindowTitle("Erreur")
+        msg.setText("Veuillez corriger les erreurs suivantes :")
+        msg.setInformativeText(err)
+        msg.exec_()
         return
 
     # Create a dictionary with the new person's data
@@ -465,13 +602,25 @@ def add_maladie(ajout_maladie):
         writer = csv.DictWriter(file, fieldnames=maladie_dict.keys())
         if os.stat(path2).st_size == 0:
             writer.writeheader()
+        else :
+            if code_verif(code):
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setWindowTitle("Attention")
+                msg.setText("Le Code existe déjà")
+                msg.exec_()
+                return
         writer.writerow(maladie_dict)
 
-    ajout_maladie.label_11.setText("Personne ajoutée avec succès")
+    msg = QMessageBox()
+    msg.setIcon(QMessageBox.Information)
+    msg.setWindowTitle("Succès")
+    msg.setText("Personne ajoutée avec succès")
+    msg.exec_()
+
 
 
 def delete_maladie(window_supp_malad):
-#assuming delete maladie bel code
     code = window_supp_malad.lineEdit.text()
     if code.isdigit():
         if os.path.exists(path2) and os.path.getsize(path2) > 0:
@@ -487,17 +636,31 @@ def delete_maladie(window_supp_malad):
                 for row in rows:
                     writer.writerow(row.values())
 
-            window_supp_malad.label_2.setText(f"Le maladie avec le code {code} a été supp_maladrimé")
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setWindowTitle("Attention")
+            msg.setText(f"La telephone avec le code {code} a été supprimé")
+            msg.exec_()
+            
         else:
-            window_supp_malad.label_2.setText("La base de données est vide ou n'existe pas")
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setWindowTitle("Attention")
+            msg.setText("La base de données est vide ou n'existe pas")
+            msg.exec_()
+            
     else:
-        window_supp_malad.label_2.setText("Vérifier le code de maladie donné")
-        
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setWindowTitle("Attention")
+        msg.setText("Vérifier le code de telephone donné")
+        msg.exec_()
 
         
         
 def modifier_nombre_anne(window_mod_tel):
     code, nombre_annee = window_mod_tel.lineEdit.text(), window_mod_tel.lineEdit_2.text()
+    err=''
     if code.isdigit() and nombre_annee.isdigit():
         if os.path.exists(path2) and os.path.getsize(path2) > 0:
             with open(path2, 'r', newline='') as file:
@@ -516,13 +679,312 @@ def modifier_nombre_anne(window_mod_tel):
                     writer = csv.DictWriter(file, fieldnames=reader.fieldnames)
                     writer.writeheader()
                     writer.writerows(rows)
-                window_mod_tel.label_3.setText(f"Nombre d'années du maladie avec le code {code} a été modifié")
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Information)
+                msg.setWindowTitle("Succès")
+                msg.setText(f"Nombre d'années du telephone avec le code {code} a été modifié")
+                msg.exec_()
+                
             else:
-                window_mod_tel.label_3.setText(f"Le maladie avec le code {code} n'existe pas")
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setWindowTitle("Attention")
+                msg.setText(f"La telephone avec le code {code} n'existe pas")
+                msg.exec_()
+                
         else:
-            window_mod_tel.label_3.setText("La base de données est vide ou n'existe pas")
+            
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setWindowTitle("Attention")
+            msg.setText("La base de données est vide ou n'existe pas")
+            msg.exec_()
     else:
-        window_mod_tel.label_3.setText("Vérifier le code ou le nombre d'années")
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setWindowTitle("Attention")
+        msg.setText("Vérifier le code ou le nombre d'années")
+        msg.exec_()
+        
+
+
+def modifier_dec(window_mod_dec):
+    code, dec1, dec0 = window_mod_dec.lineEdit.text(), window_mod_dec.dec_oui.isChecked() , window_mod_dec.dec_non.isChecked()
+    if not code.isdigit():
+        window_mod_dec.label_3.setText("Vérifier le code")
+        return
+    if dec1 == dec0 :
+        window_mod_dec.label_3.setText("Vérifier l'état de décès")
+        return
+    if os.path.exists(path2) and os.path.getsize(path2) > 0:
+        with open(path2, 'r', newline='') as file:
+            reader = csv.DictReader(file)
+            rows = list(reader)
+
+        found = False
+        for row in rows:
+            if row['Code'] == code:
+                cin = row['CIN']
+                found = True
+                break
+
+        if found:
+            with open(path, 'r', newline='') as file0:
+                reader0 = csv.DictReader(file0)
+                rows0 = list(reader0)
+            for row in rows0:
+                if row['CIN'] == cin:
+                    row['deceder'] = dec1
+                    break
+            with open(path, 'w', newline='') as file2:
+                writer = csv.DictWriter(file2, fieldnames=reader0.fieldnames)
+                writer.writeheader()
+                writer.writerows(rows0)
+        
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setWindowTitle("Succès")
+            msg.setText("status modifier avec succès!")
+            msg.exec_()
+        else:
+
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setWindowTitle("Attention")
+            msg.setText(f"La telephone avec le code {code} n'existe pas")
+            msg.exec_()
+    else:
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setWindowTitle("Attention")
+        msg.setText("La base de données est vide ou n'existe pas")
+        msg.exec_()
+        
 
 
 
+def affichage2(window_show_contenu_mal):
+    # Create a new QStandardItemModel
+    model = QStandardItemModel()
+
+    # Clear the contents of the model
+    model.clear()
+
+    # Read the data from the CSV file
+    df = pd.read_csv(path2)
+
+    # Add the data to the model
+    for row in range(df.shape[0]):
+        model.insertRow(row)
+        for col in range(df.shape[1]):
+            item = QStandardItem(str(df.iloc[row, col]))
+            model.setItem(row, col, item)
+
+    # Set the model on the table view
+    window_show_contenu_mal.tableView.setModel(model)
+
+    # Define a function to update the table view
+    def update_table_view():
+        # Clear the contents of the model
+        model.clear()
+
+        # Read the data from the CSV file
+        data = pd.read_csv(path2)
+
+        # Add the data to the model
+        for row in range(data.shape[0]):
+            model.insertRow(row)
+            for col in range(data.shape[1]):
+                item = QStandardItem(str(data.iloc[row, col]))
+                model.setItem(row, col, item)
+
+        # Set the model on the table view
+        window_show_contenu_mal.tableView.setModel(model)
+
+def recherche_mal(window_rech_mal):
+    maladie = window_rech_mal.lineEdit.text()
+    if maladie.isalpha():
+        if os.path.exists(path2) and os.path.getsize(path2) > 0:
+            with open(path2, 'r', newline='') as f:
+                reader = csv.DictReader(f)
+                rows = []
+                for row in reader:
+                    if row['Nom_maladie'] == maladie:
+                        rows.append(row)
+
+                if rows:
+                    fieldnames = header2
+                    model = CsvTableModelDict(rows, fieldnames)
+                    window_rech_mal.tableView.setModel(model)
+                    
+                else:
+                    window_rech_mal.tableView.setModel(None)
+                    msg = QMessageBox()
+                    msg.setIcon(QMessageBox.Warning)
+                    msg.setWindowTitle("Attention")
+                    msg.setText("Aucun résultat trouvé pour ce nom de maladie")
+                    msg.exec_()
+                            
+        else:
+            window_rech_mal.tableView.setModel(None)
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setWindowTitle("Attention")
+            msg.setText("La base de données est vide ou n'existe pas")
+            msg.exec_()
+            
+    else:
+        window_rech_mal.tableView.setModel(None)
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setWindowTitle("Attention")
+        msg.setText("Vérifier le nom de la maladie")
+        msg.exec_()
+        
+
+def recherche_mal_pers(window_rech_mal_pers):
+    cin = window_rech_mal_pers.lineEdit.text()
+    if cin_verif:
+        if os.path.exists(path2) and os.path.getsize(path2) > 0:
+            with open(path2, 'r', newline='') as f:
+                reader = csv.DictReader(f)
+                rows = []
+                for row in reader:
+                    if row['CIN'] == cin:
+                        rows.append(row)
+
+                if rows:
+                    fieldnames = header2
+                    model = CsvTableModelDict(rows, fieldnames)
+                    window_rech_mal_pers.tableView.setModel(model)
+                    
+                else:
+                    window_rech_mal_pers.tableView.setModel(None)
+                    msg = QMessageBox()
+                    msg.setIcon(QMessageBox.Warning)
+                    msg.setWindowTitle("Attention")
+                    msg.setText("Aucun résultat trouvé pour ce CIN de malade")
+                    msg.exec_()
+                    
+        else:
+            window_rech_mal_pers.tableView.setModel(None)
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setWindowTitle("Attention")
+            msg.setText("La base de données est vide ou n'existe pas")
+            msg.exec_()
+            
+    else:
+        window_rech_mal_pers.tableView.setModel(None)
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setWindowTitle("Attention")
+        msg.setText("Vérifier le CIN du malade")
+        msg.exec_()
+        
+
+
+ 
+
+def recherche_mal_pers(window_rech_mal_pers):
+    cin = window_rech_mal_pers.lineEdit.text()
+    if cin_verif:
+        if os.path.exists(path2) and os.path.getsize(path2) > 0:
+            with open(path2, 'r', newline='') as f:
+                reader = csv.DictReader(f)
+                rows = []
+                for row in reader:
+                    if row['CIN'] == cin:
+                        rows.append(row)
+
+                if rows:
+                    fieldnames = header2
+                    model = CsvTableModelDict(rows, fieldnames)
+                    window_rech_mal_pers.tableView.setModel(model)
+                    
+                else:
+                    window_rech_mal_pers.tableView.setModel(None)
+                    msg = QMessageBox()
+                    msg.setIcon(QMessageBox.Warning)
+                    msg.setWindowTitle("Attention")
+                    msg.setText("Aucun résultat trouvé pour ce CIN de malade")
+                    msg.exec_()
+                    
+        else:
+            window_rech_mal_pers.tableView.setModel(None)
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setWindowTitle("Attention")
+            msg.setText("La base de données est vide ou n'existe pas")
+            msg.exec_()
+                
+    else:
+        window_rech_mal_pers.tableView.setModel(None)
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setWindowTitle("Attention")
+        msg.setText("Vérifier le CIN du malade")
+        msg.exec_()
+        
+
+
+
+
+def maladie_chaque_pers(window_all_mal_pers):
+    if os.path.exists(path2) and os.path.getsize(path2) > 0:
+        with open(path2, 'r', newline='') as f:
+            reader = csv.DictReader(f)
+            rows = []
+            for row in reader:
+                if row['CIN'] not in rows:
+                    rows.append(row['CIN'])
+            rowss = []
+            for i in rows:
+                with open(path2, 'r', newline='') as f:
+                    reader = csv.DictReader(f)
+                    
+                    for row in reader:
+                        if row['CIN'] == i:
+                            rowss.append(row)
+
+            if rowss:
+                fieldnames = header2
+                model = CsvTableModelDict(rowss, fieldnames)
+                window_all_mal_pers.tableView.setModel(model)
+            else:
+                window_all_mal_pers.tableView.setModel(None)
+    else:
+        window_all_mal_pers.tableView.setModel(None)
+
+
+def pourcentage_maladie(window_all_mal_pers):
+    if os.path.exists(path2) and os.path.getsize(path2) > 0:
+        with open(path2, 'r', newline='') as f:
+            reader = csv.DictReader(f)
+            rows = []
+            total=0
+            for row in reader:
+                total+=1
+                if row['Nom_maladie'] not in rows:
+                    rows.append(row['Nom_maladie'])
+            rowss = []
+            for i in rows:
+                with open(path2, 'r', newline='') as f:
+                    reader = csv.DictReader(f)
+                    count=0
+                    for row in reader:
+                        if row['Nom_maladie'] == i:
+                            count+=1
+                    p=dict()
+                    p["Nom_maladie"]=i
+                    p["pourcentage"]=round((count*100)/total ,2)
+                    rowss.append(p)
+
+            if rowss:
+                fieldnames = ["Nom_maladie","pourcentage"]
+                model = CsvTableModelDict(rowss, fieldnames)
+                window_all_mal_pers.tableView.setModel(model)
+            else:
+                window_all_mal_pers.tableView.setModel(None)
+    else:
+        window_all_mal_pers.tableView.setModel(None)
