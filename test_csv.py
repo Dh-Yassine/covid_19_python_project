@@ -90,7 +90,7 @@ def add_personne(window2):
         'Nationalite': nationalite,
         'Telephone': telephone,
         'Date_infection': date_infection,
-        'deceder': 'Oui' if dec1 else 'Non'
+        'deceder': 'True' if dec1 else 'False'
     }
 
     # Write the dictionary to the CSV file
@@ -502,9 +502,9 @@ def recherche_pers_dec(window_rech_dec):
                 window_rech_dec.label_3.setText("Vous ne pouvez pas sélectionner les deux options")
                 return
             for row in reader:
-                if window_rech_dec.dec1.isChecked() and row['deceder'] == "Oui":
+                if window_rech_dec.dec1.isChecked() and row['deceder'] == "True":
                     rows.append(row)
-                elif window_rech_dec.dec2.isChecked() and row['deceder'] == "Non":
+                elif window_rech_dec.dec2.isChecked() and row['deceder'] == "False":
                     rows.append(row)
 
             if rows:
