@@ -38,6 +38,5 @@ CIN,Nom,Prenom,Age,Adresse,Nationalite,Telephone,Date_infection,deceder
 78901237,Miller,Emma,35,New York,American,555-9876,16-09-2021,False
 89012348,Kumar,Arjun,28,Mumbai,Indian,91-987-6543,28-07-2022,False
 90123459,Gomez,Sofia,23,Bogotá,Colombian,57-123-4567,04-02-2022,False
-11885566,kacem,ahmed,26,bebbhar,american,25369147,4-05-2023,Oui
-
-98653200,olatunji,olajide,31,wessex,nigerian,26260990,06-05-2023,Oui
+11885566,kacem,ahmed,26,bebbhar,american,25369147,4-05-2023,True
+98653200,olatunji,olajide,31,wessex,nigerian,26260990,06-05-2023,True
