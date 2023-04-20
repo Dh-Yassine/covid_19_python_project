@@ -6,6 +6,10 @@ from PyQt5.QtWidgets import QMessageBox
 import csv
 import os
 from datetime import datetime
+from datetime import date
+today = date.today()
+#d4 = today.strftime("%b-%d-%Y")
+
 
 path = "BD_Personnes.csv"
 header = ['CIN', 'Nom', 'Prenom', 'Age', 'Adresse', 'Nationalite', 'Telephone', 'Date_infection', 'deceder']
@@ -125,7 +129,6 @@ def delete(window_Supp):
         if os.path.exists(path) and os.path.getsize(path) > 0:
             with open(path, 'r', newline='') as f:
                 reader = csv.DictReader(f)
-                print(reader)
                 f.seek(0)
                 rows = [row for row in reader if row['CIN'] != num]
 
@@ -234,25 +237,6 @@ def affichage(window_show_contenu):
 
     # Set the model on the table view
     window_show_contenu.tableView.setModel(model)
-
-    # Define a function to update the table view
-    def update_table_view():
-        # Clear the contents of the model
-        model.clear()
-
-        # Read the data from the CSV file
-        data = pd.read_csv('BD_Personnes.csv')
-
-        # Add the data to the model
-        for row in range(data.shape[0]):
-            model.insertRow(row)
-            for col in range(data.shape[1]):
-                item = QStandardItem(str(data.iloc[row, col]))
-                model.setItem(row, col, item)
-
-        # Set the model on the table view
-        window_show_contenu.tableView.setModel(model)
-import csv
 
 def modifier_telephone(window_mod_tel):
     num,telephone = window_mod_tel.lineEdit.text() , window_mod_tel.lineEdit_2.text()
@@ -615,7 +599,7 @@ def add_maladie(ajout_maladie):
     msg = QMessageBox()
     msg.setIcon(QMessageBox.Information)
     msg.setWindowTitle("Succès")
-    msg.setText("Personne ajoutée avec succès")
+    msg.setText("Maladie ajoutée avec succès")
     msg.exec_()
 
 
@@ -783,23 +767,7 @@ def affichage2(window_show_contenu_mal):
     # Set the model on the table view
     window_show_contenu_mal.tableView.setModel(model)
 
-    # Define a function to update the table view
-    def update_table_view():
-        # Clear the contents of the model
-        model.clear()
-
-        # Read the data from the CSV file
-        data = pd.read_csv(path2)
-
-        # Add the data to the model
-        for row in range(data.shape[0]):
-            model.insertRow(row)
-            for col in range(data.shape[1]):
-                item = QStandardItem(str(data.iloc[row, col]))
-                model.setItem(row, col, item)
-
-        # Set the model on the table view
-        window_show_contenu_mal.tableView.setModel(model)
+    
 
 def recherche_mal(window_rech_mal):
     maladie = window_rech_mal.lineEdit.text()
@@ -883,53 +851,6 @@ def recherche_mal_pers(window_rech_mal_pers):
         msg.exec_()
         
 
-
- 
-
-def recherche_mal_pers(window_rech_mal_pers):
-    cin = window_rech_mal_pers.lineEdit.text()
-    if cin_verif:
-        if os.path.exists(path2) and os.path.getsize(path2) > 0:
-            with open(path2, 'r', newline='') as f:
-                reader = csv.DictReader(f)
-                rows = []
-                for row in reader:
-                    if row['CIN'] == cin:
-                        rows.append(row)
-
-                if rows:
-                    fieldnames = header2
-                    model = CsvTableModelDict(rows, fieldnames)
-                    window_rech_mal_pers.tableView.setModel(model)
-                    
-                else:
-                    window_rech_mal_pers.tableView.setModel(None)
-                    msg = QMessageBox()
-                    msg.setIcon(QMessageBox.Warning)
-                    msg.setWindowTitle("Attention")
-                    msg.setText("Aucun résultat trouvé pour ce CIN de malade")
-                    msg.exec_()
-                    
-        else:
-            window_rech_mal_pers.tableView.setModel(None)
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Warning)
-            msg.setWindowTitle("Attention")
-            msg.setText("La base de données est vide ou n'existe pas")
-            msg.exec_()
-                
-    else:
-        window_rech_mal_pers.tableView.setModel(None)
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Warning)
-        msg.setWindowTitle("Attention")
-        msg.setText("Vérifier le CIN du malade")
-        msg.exec_()
-        
-
-
-
-
 def maladie_chaque_pers(window_all_mal_pers):
     if os.path.exists(path2) and os.path.getsize(path2) > 0:
         with open(path2, 'r', newline='') as f:
@@ -940,6 +861,8 @@ def maladie_chaque_pers(window_all_mal_pers):
                     rows.append(row['CIN'])
             rowss = []
             for i in rows:
+                o= {'Code': i}
+                rowss.append(o)
                 with open(path2, 'r', newline='') as f:
                     reader = csv.DictReader(f)
                     
@@ -947,17 +870,19 @@ def maladie_chaque_pers(window_all_mal_pers):
                         if row['CIN'] == i:
                             rowss.append(row)
 
-            if rowss:
-                fieldnames = header2
-                model = CsvTableModelDict(rowss, fieldnames)
-                window_all_mal_pers.tableView.setModel(model)
-            else:
-                window_all_mal_pers.tableView.setModel(None)
+            fieldnames = header2
+            model = CsvTableModelDict(rowss, fieldnames)
+            window_all_mal_pers.tableView.setModel(model)
     else:
         window_all_mal_pers.tableView.setModel(None)
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setWindowTitle("Attention")
+        msg.setText("La base de données est vide ou n'existe pas")
+        msg.exec_()
 
 
-def pourcentage_maladie(window_all_mal_pers):
+def pourcentage_maladies(window_pourcentage_pers):
     if os.path.exists(path2) and os.path.getsize(path2) > 0:
         with open(path2, 'r', newline='') as f:
             reader = csv.DictReader(f)
@@ -983,8 +908,169 @@ def pourcentage_maladie(window_all_mal_pers):
             if rowss:
                 fieldnames = ["Nom_maladie","pourcentage"]
                 model = CsvTableModelDict(rowss, fieldnames)
-                window_all_mal_pers.tableView.setModel(model)
+                window_pourcentage_pers.tableView.setModel(model)
             else:
-                window_all_mal_pers.tableView.setModel(None)
+                window_pourcentage_pers.tableView.setModel(None)
     else:
-        window_all_mal_pers.tableView.setModel(None)
+        window_pourcentage_pers.tableView.setModel(None)
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setWindowTitle("Attention")
+        msg.setText("La base de données est vide ou n'existe pas")
+        msg.exec_()
+
+
+
+def chaque_nationalite(window_nationalite):
+    if os.path.exists(path) and os.path.getsize(path) > 0:
+        with open(path, 'r', newline='') as f:
+            reader = csv.DictReader(f)
+            rows = []
+            for row in reader:
+                if row['Nationalite'] not in rows:
+                    rows.append(row['Nationalite'])
+            rowss = []
+            for i in rows:
+                o={'CIN': i}
+                rowss.append(o)
+                with open(path, 'r', newline='') as f:
+                    reader = csv.DictReader(f)
+                    
+                    for row in reader:
+                        if row['Nationalite'] == i:
+                            rowss.append(row)
+
+            fieldnames = header
+            model = CsvTableModelDict(rowss, fieldnames)
+            window_nationalite.tableView.setModel(model)
+    else:
+        window_nationalite.tableView.setModel(None)
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setWindowTitle("Attention")
+        msg.setText("La base de données est vide ou n'existe pas")
+        msg.exec_()
+
+
+
+def afficher_en_quarantaine(window_quarantaine):
+    if os.path.exists(path) and os.path.getsize(path) > 0:
+        with open(path, 'r', newline='') as f:
+            reader = csv.DictReader(f)
+            rows = []
+            for row in reader:
+                if abs(datetime.now()-datetime.strptime(row['Date_infection'], "%d-%m-%Y")).days <=14 :
+                    rows.append(row)
+            if rows:
+                fieldnames = header
+                model = CsvTableModelDict(rows, fieldnames)
+                window_quarantaine.tableView.setModel(model)
+            else:
+                window_quarantaine.tableView.setModel(None)
+    else:
+        window_quarantaine.tableView.setModel(None)
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setWindowTitle("Attention")
+        msg.setText("La base de données est vide ou n'existe pas")
+        msg.exec_()
+
+
+def afficher_deceder(window_deceder):
+    if os.path.exists(path) and os.path.getsize(path) > 0:
+        total=0
+        count=0
+        with open(path, 'r', newline='') as f:
+            reader = csv.DictReader(f)
+            rows = []
+            for row in reader:
+                total+=1
+                if row['deceder'] =="True":
+                    count+=1
+                    rows.append(row)
+            p=dict()
+            p["CIN"]=str(round((count*100)/total ,2))+"%"
+            rows.append(p)
+            if rows:
+                fieldnames = header
+                model = CsvTableModelDict(rows, fieldnames)
+                window_deceder.tableView.setModel(model)
+            else:
+                window_deceder.tableView.setModel(None)
+    else:
+        window_deceder.tableView.setModel(None)
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setWindowTitle("Attention")
+        msg.setText("La base de données est vide ou n'existe pas")
+        msg.exec_()
+
+header3=['CIN', 'Nom', 'Prenom', 'Age', 'Adresse', 'Nationalite', 'Telephone', 'Date_infection', 'deceder', 'risque']
+def afficher_en_risque(window_risque):
+    if os.path.exists(path) and os.path.getsize(path) > 0:
+        
+        with open(path, 'r', newline='') as f:
+            reader = csv.DictReader(f)
+            rows = []
+            for row in reader:
+                risque=0
+                if int(row['Age'])>70:
+                    risque+=20
+                if 50<int(row['Age'])<70:
+                    risque+=10
+                with open(path2, 'r', newline='') as f:
+                    readerr = csv.DictReader(f)
+                    for rowi in readerr:
+                        if rowi['CIN']==row["CIN"]:
+                            if rowi["Nom_maladie"]=="diabete" :
+                                risque+=20
+                            if rowi["Nom_maladie"]=="hypertension" :
+                                risque+=20
+                            if rowi["Nom_maladie"]=="asthme" :
+                                risque+=20
+                print(risque)
+                if risque!=0:
+                    row["risque"]=risque
+                    rows.append(row)
+            if rows:
+                fieldnames = header3
+                model = CsvTableModelDict(rows, fieldnames)
+                window_risque.tableView.setModel(model)
+            else:
+                window_risque.tableView.setModel(None)
+    else:
+        window_risque.tableView.setModel(None)
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setWindowTitle("Attention")
+        msg.setText("La base de données est vide ou n'existe pas")
+        msg.exec_()
+
+
+
+
+
+def rech_nationalite(window_nationalite):
+    if os.path.exists(path) and os.path.getsize(path) > 0:
+        nationalite=window_nationalite.lineEdit.text()
+        with open(path, 'r', newline='') as f:
+            reader = csv.DictReader(f)
+            rows = []
+            
+            with open(path, 'r', newline='') as f:
+                reader = csv.DictReader(f)
+                
+                for row in reader:
+                    if row['Nationalite'] == nationalite:
+                        rows.append(row)
+
+            fieldnames = header
+            model = CsvTableModelDict(rows, fieldnames)
+            window_nationalite.tableView.setModel(model)
+    else:
+        window_nationalite.tableView.setModel(None)
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setWindowTitle("Attention")
+        msg.setText("La base de données est vide ou n'existe pas")
+        msg.exec_()

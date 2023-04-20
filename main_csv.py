@@ -170,9 +170,55 @@ window_all_mal_pers.pushButton.clicked.connect(lambda: test_csv.maladie_chaque_p
 
 
 
+window_pourcentage_pers=loadUi("rech_pourcentage_mal.ui")
+
+window.pourcentage_maladie.triggered.connect(window_pourcentage_pers.show)
+
+window_pourcentage_pers.pushButton.clicked.connect(lambda: test_csv.pourcentage_maladies(window_pourcentage_pers))
 
 
 
+
+window_quarantaine=loadUi("rech_pers_quarantaine.ui")
+
+window.quarantaine.triggered.connect(window_quarantaine.show)
+
+window_quarantaine.pushButton.clicked.connect(lambda: test_csv.afficher_en_quarantaine(window_quarantaine))
+
+
+
+
+window_deceder=loadUi("rech_deceder_mal.ui")
+
+window.deceder_pers_mal.triggered.connect(window_deceder.show)
+
+window_deceder.pushButton.clicked.connect(lambda: test_csv.afficher_deceder(window_deceder))
+
+
+
+
+window_risque=loadUi("risque.ui")
+
+window.rech_risque.triggered.connect(window_risque.show)
+
+window_risque.pushButton.clicked.connect(lambda: test_csv.afficher_en_risque(window_risque))
+
+
+
+window_nationalite=loadUi("aff_nationalite.ui")
+
+window.aff_nationalite.triggered.connect(window_nationalite.show)
+
+window_nationalite.pushButton.clicked.connect(lambda: test_csv.chaque_nationalite(window_nationalite))
+
+
+
+
+window_rech_nationalite=loadUi("rech_nationalite.ui")
+
+window.rech_nationalite.triggered.connect(window_rech_nationalite.show)
+
+window_rech_nationalite.pushButton.clicked.connect(lambda: test_csv.rech_nationalite(window_rech_nationalite))
 app.exec()
 
 

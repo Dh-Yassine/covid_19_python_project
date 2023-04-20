@@ -1,5 +1,43 @@
 CIN,Nom,Prenom,Age,Adresse,Nationalite,Telephone,Date_infection,deceder
 11998987,dhouibi,yassine,26,kairouan,tunisian,26260995,22-09-2003,False
-11995482,dhouibi,yassine,26,kairouan,tunisian,26260995,22-09-2003,False
-12345678,dhouibi,yassine,26,kairouan,tunisian,26260995,22-09-2003,False
-11998988,dhouibi,yassine,26,kairouan,tunisian,26260995,22-09-2003,False
+25874691,Smith,John,45,New York,American,555-1234,08-03-2022,True
+41709670,Garcia,Maria,32,Madrid,Spanish,654-9876,17-05-2021,False
+10293847,Choi,Jin,28,Seoul,Korean,02-3456-7890,12-11-2022,False
+76543219,Francois,Sophie,39,Paris,French,06-7890-1234,19-02-2022,True
+11798213,Santos,Carlos,55,Rio de Janeiro,Brazilian,21-6543-9876,04-09-2021,False
+89354761,Nguyen,Minh,30,Hanoi,Vietnamese,84-123-4567,11-06-2022,False
+76543210,Chan,Kwok,48,Hong Kong,Chinese,852-9876-5432,28-12-2021,False
+98765432,Ahmed,Ali,27,Cairo,Egyptian,20-123-4567,05-02-2022,False
+34567890,Jones,Samantha,36,London,British,44-123-4567,01-01-2022,False
+45678901,Fernandez,Carlos,41,Madrid,Spanish,34-987-6543,19-04-2021,True
+56789012,Santana,Isabella,29,Mexico City,Mexican,52-123-4567,16-09-2022,False
+67890123,Kim,Dae-hyun,22,Seoul,Korean,02-987-6543,23-03-2022,False
+78901234,Santos,Paulo,49,São Paulo,Brazilian,55-987-6543,12-10-2021,True
+89012345,Abdullah,Mohammed,35,Riyadh,Saudi Arabian,966-123-4567,08-08-2022,False
+11648752,Li,Yun,31,Shanghai,Chinese,86-123-4567,30-01-2022,False
+23456789,Rodriguez,Julia,27,Barcelona,Spanish,34-123-4567,11-05-2021,False
+34567891,Lee,Seung-hyun,25,Busan,Korean,02-123-4567,22-07-2022,False
+45678902,Chen,Yun,26,Beijing,Chinese,86-987-6543,17-06-2022,False
+56789013,Nguyen,Thanh,39,Ho Chi Minh City,Vietnamese,84-987-6543,30-12-2021,True
+67890124,Gonzalez,Marcela,44,Buenos Aires,Argentinian,54-123-4567,29-03-2021,False
+78901235,Khan,Sara,33,Islamabad,Pakistani,92-123-4567,09-02-2022,False
+89012346,El Amrani,Ahmed,29,Casablanca,Moroccan,212-123-4567,14-06-2022,False
+90123457,Suzuki,Masato,42,Tokyo,Japanese,81-123-4567,28-04-2022,True
+23456790,Park,Ji-woo,23,Seoul,Korean,02-345-6789,18-07-2022,False
+34567892,Torres,Diego,28,Buenos Aires,Argentinian,54-987-6543,06-08-2021,False
+45678903,Hassan,Mohammed,39,Cairo,Egyptian,20-987-6543,22-05-2022,False
+56789014,Kim,Ji-eun,32,Seoul,Korean,02-567-8901,15-02-2022,False
+78901236,Martinez,Jose,37,Mexico City,Mexican,52-987-6543,07-10-2021,False
+89012347,Wang,Yun,29,Shenzhen,Chinese,86-987-6543,20-06-2022,False
+90123458,Ali,Mohammed,26,Karachi,Pakistani,92-987-6543,13-05-2022,False
+23456791,Kim,Soo-jin,31,Seoul,Korean,02-456-7890,02-03-2022,False
+11876543,Mohamed,Nadia,43,Cairo,Egyptian,20-345-6789,25-04-2022,True
+45678904,Chung,Hae-won,24,Busan,Korean,02-234-5678,31-07-2022,False
+56789015,Nguyen,Anh,33,Ho Chi Minh City,Vietnamese,84-123-7890,11-11-2021,False
+67890126,Singh,Rajesh,40,Delhi,Indian,91-123-4567,06-05-2022,True
+78901237,Miller,Emma,35,New York,American,555-9876,16-09-2021,False
+89012348,Kumar,Arjun,28,Mumbai,Indian,91-987-6543,28-07-2022,False
+90123459,Gomez,Sofia,23,Bogotá,Colombian,57-123-4567,04-02-2022,False
+11885566,kacem,ahmed,26,bebbhar,american,25369147,4-05-2023,Oui
+
+98653200,olatunji,olajide,31,wessex,nigerian,26260990,06-05-2023,Oui

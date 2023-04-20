@@ -1134,7 +1134,7 @@
      <addaction name="separator"/>
      <addaction name="rech_ind"/>
      <addaction name="separator"/>
-     <addaction name="rech_nat"/>
+     <addaction name="rech_nationalite"/>
      <addaction name="separator"/>
      <addaction name="rech_dec"/>
     </widget>
@@ -1868,7 +1868,7 @@
      <addaction name="separator"/>
      <addaction name="rech_mal_pers"/>
      <addaction name="separator"/>
-     <addaction name="actionRecherche_le_pourcentage_de_chaque_maladie"/>
+     <addaction name="pourcentage_maladie"/>
      <addaction name="separator"/>
      <addaction name="rech_all_pers"/>
      <addaction name="separator"/>
@@ -2054,13 +2054,13 @@
     <property name="title">
      <string>Calcul et Affichage</string>
     </property>
-    <addaction name="actionAfficher_par_nationalit"/>
+    <addaction name="aff_nationalite"/>
     <addaction name="separator"/>
-    <addaction name="actionPersonnes_en_quarantine"/>
+    <addaction name="quarantaine"/>
     <addaction name="separator"/>
-    <addaction name="actionPersonnes_d_c_d_s"/>
+    <addaction name="deceder_pers_mal"/>
     <addaction name="separator"/>
-    <addaction name="actionPersonnes_risque"/>
+    <addaction name="rech_risque"/>
     <addaction name="separator"/>
    </widget>
    <addaction name="menujdddoub"/>
@@ -2163,7 +2163,7 @@
     <string>Recherche par indicatif</string>
    </property>
   </action>
-  <action name="rech_nat">
+  <action name="rech_nationalite">
    <property name="icon">
     <iconset>
      <normaloff>search.png</normaloff>search.png</iconset>
@@ -2250,7 +2250,7 @@
     <string>Recherche  maladies d'une personne</string>
    </property>
   </action>
-  <action name="actionRecherche_le_pourcentage_de_chaque_maladie">
+  <action name="pourcentage_maladie">
    <property name="icon">
     <iconset>
      <normaloff>search.png</normaloff>search.png</iconset>
@@ -2268,7 +2268,7 @@
     <string>Recherche maladies de chaque personne</string>
    </property>
   </action>
-  <action name="actionAfficher_par_nationalit">
+  <action name="aff_nationalite">
    <property name="icon">
     <iconset>
      <normaloff>nationalite.png</normaloff>nationalite.png</iconset>
@@ -2277,7 +2277,7 @@
     <string>Afficher par nationalité</string>
    </property>
   </action>
-  <action name="actionPersonnes_en_quarantine">
+  <action name="quarantaine">
    <property name="icon">
     <iconset>
      <normaloff>dead.png</normaloff>dead.png</iconset>
@@ -2286,7 +2286,7 @@
     <string>Personnes en quarantine</string>
    </property>
   </action>
-  <action name="actionPersonnes_d_c_d_s">
+  <action name="deceder_pers_mal">
    <property name="icon">
     <iconset>
      <normaloff>dead.png</normaloff>dead.png</iconset>
@@ -2295,7 +2295,7 @@
     <string>Personnes décédés</string>
    </property>
   </action>
-  <action name="actionPersonnes_risque">
+  <action name="rech_risque">
    <property name="icon">
     <iconset>
      <normaloff>dead.png</normaloff>dead.png</iconset>
